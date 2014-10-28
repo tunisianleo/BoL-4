@@ -1,9 +1,10 @@
-    local version = "0.2"
+
+    local version = "1.0"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 0.1
+                    Version: 1.0
                     Copyright 2014
                            
             Dependency: Standalone
@@ -78,6 +79,7 @@
             Variables()
             Menu()
             PriorityOnLoad()
+						EvolutionCheck()
     end
      
     function OnTick()
@@ -135,6 +137,8 @@
     ------------------------------------------------------
     --                       Functions                             
     ------------------------------------------------------
+		
+		
      
     function Combo(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
@@ -195,17 +199,17 @@
     end
      
     function Heal()
-            if myHero.mana == 100 then
+            if myHero.health  <= 300 then
                     enemyMinions:update()
      
                     for _, minion in pairs(enemyMinions.objects) do
                             if ValidTarget(minion) and minion ~= nil then
-                                    CastW(minion)
+                                    CastSpell(_W, minion.x, minion.y)
                             end
                     end
                     for _, enemy in ipairs(GetEnemyHeroes()) do
                             if ValidTarget(enemy) and enemy.visible then
-                                    CastW(enemy)
+                                    CastSpell(_W, enemy.x, enemy.y)
                             end
                     end
             end
@@ -370,13 +374,26 @@
             TargetSelector.name = "Khazix"
             Settings:addTS(TargetSelector)
     end
+		
+	function EvolutionCheck()
+	
+	if myHero:GetSpellData(_Q).name == "khazixqlong" then
+		SkillQ.range = 375
+		evolve = true
+	end 
+	if myHero:GetSpellData(_E).name == "khazixelong" then
+		SkillE.range = 900
+		evolve = true
+	end 
+end 
      
     function Variables()
-            SkillQ = { name = "Taste Their Fear", range = 325, delay = nil, speed = nil, width = nil, ready = false }
+            SkillQ = { name = "Taste Their Fear", range = 325, delay = nil, speed = nil, width = nil, evolve = false, ready = false }
             SkillW = { name = "Void Spike", range = 1000, delay = 0.225, speed = 828.5, width = 100, ready = false }
-            SkillE = { name = "Leap", range = 600, delay = 0.250, speed = math.huge, width = 100, ready = false }
+            SkillE = { name = "Leap", range = 600, delay = 0.250, speed = math.huge, width = 100, evolve = false, ready = false }
             SkillR = { name = "Void Assault", range = nil, delay = nil, speed = nil, width = nil, ready = false }
             Ignite = { name = "summonerdot", range = 600, slot = nil }
+						
      
             enemyMinions = minionManager(MINION_ENEMY, SkillE.range, myHero, MINION_SORT_HEALTH_ASC)
      
