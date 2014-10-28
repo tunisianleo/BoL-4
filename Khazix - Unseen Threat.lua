@@ -1,10 +1,10 @@
 
-    local version = "1.1"
+    local version = "1.2"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.1
+                    Version: 1.2
                     Copyright 2014
                            
             Dependency: Standalone
@@ -79,7 +79,7 @@
             Variables()
             Menu()
             PriorityOnLoad()
-						EvolutionCheck()
+						
     end
      
     function OnTick()
@@ -87,6 +87,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
+						EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
