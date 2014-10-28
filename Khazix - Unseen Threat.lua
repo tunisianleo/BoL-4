@@ -87,7 +87,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-						EvolutionCheck()
+	    EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
