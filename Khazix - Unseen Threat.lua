@@ -12,7 +12,7 @@
      
     if myHero.charName ~= "Khazix" then return end
      
-    _G.UseUpdater = false
+    _G.UseUpdater = true
      
     local REQUIRED_LIBS = {
             ["SxOrbwalk"] = "https://raw.githubusercontent.com/Superx321/BoL/master/common/SxOrbWalk.lua",
