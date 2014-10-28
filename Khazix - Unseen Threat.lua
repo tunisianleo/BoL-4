@@ -1,10 +1,10 @@
 
-    local version = "1.0"
+    local version = "1.1"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.0
+                    Version: 1.1
                     Copyright 2014
                            
             Dependency: Standalone
@@ -12,7 +12,7 @@
      
     if myHero.charName ~= "Khazix" then return end
      
-    _G.UseUpdater = true
+    _G.UseUpdater = false
      
     local REQUIRED_LIBS = {
             ["SxOrbwalk"] = "https://raw.githubusercontent.com/Superx321/BoL/master/common/SxOrbWalk.lua",
@@ -363,7 +363,6 @@
             Settings.drawing.lfc:addParam("Width", "Width", 4, 1, 1, 10, 0)
      
             Settings:addSubMenu("["..myHero.charName.."] - Misc Settings", "misc")
-            Settings.misc:addParam("healW", "Use "..SkillW.name.." (W) to Heal", SCRIPT_PARAM_SLICE, 25, 0, 100, 0)
             Settings.misc:addParam("skinList", "Choose your skin", SCRIPT_PARAM_LIST, 3, { "Mecha", "Guardian of the Sands", "Classic" })
      
      
