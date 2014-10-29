@@ -3,7 +3,7 @@
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.35
+                    Version: 1.4
                     Copyright 2014
                            
             Dependency: Standalone
