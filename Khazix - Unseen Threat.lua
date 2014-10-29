@@ -86,7 +86,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	          EvolutionCheck()
+	    EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -155,7 +155,7 @@
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
                     if Settings.harass.useW then CastW(Unit) end
-										if Settings.harass.useQ then CastQ(unit) end
+		    if Settings.harass.useQ then CastQ(unit) end
                    
             end
     end
@@ -326,7 +326,7 @@
             Settings:addSubMenu("["..myHero.charName.."] - Harass Settings", "harass")
             Settings.harass:addParam("harassKey", "Harass Key", SCRIPT_PARAM_ONKEYDOWN, false, GetKey("C"))
             Settings.harass:addParam("useW", "Use "..SkillW.name.." (W) in Harass", SCRIPT_PARAM_ONOFF, true)
-						Settings.harass:addParam("useQ", "Use "..SkillQ.name.." (Q) in Harass", SCRIPT_PARAM_ONOFF, true)
+	    Settings.harass:addParam("useQ", "Use "..SkillQ.name.." (Q) in Harass", SCRIPT_PARAM_ONOFF, true)
             
             Settings.harass:permaShow("harassKey")
      
