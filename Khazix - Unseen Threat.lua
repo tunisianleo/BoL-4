@@ -86,7 +86,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	          EvolutionCheck()
+	     EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -155,7 +155,7 @@
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
                     if Settings.harass.useW then CastW(unit) end
-										if Settings.harass.useQ then CastQ(unit) end
+		    if Settings.harass.useQ then CastQ(unit) end
                    
             end
     end
@@ -223,13 +223,13 @@
     function CastQ(unit)
             --if not ComboKey then return end
             if unit ~= nil and SkillQ.ready and GetDistance(unit) <= SkillQ.range then	
-						if VIP_USER then 
-						Packet("S_CAST", {spellId = _Q, targetNetworkId = unit.networkID}):send()
-						
-						else
+            if VIP_USER then 
+	    Packet("S_CAST", {spellId = _Q, targetNetworkId = unit.networkID}):send()
+					
+	else
                      CastSpell(_Q, unit)
 										 
-										 end
+		 end
 										 
 										 
             end
@@ -238,33 +238,32 @@
     function CastE(unit)
            -- if not ComboKey  then return end
             if unit ~= nil and SkillE.ready and GetDistance(unit) <= SkillE.range then
-						local AOECastPosition, MainTargetHitChance, nTargets = VP:GetCircularAOECastPosition(unit, SkillE.delay, SkillE.width, SkillE.range, SkillE.speed, myHero)
-                    if MainTargetHitChance >= 2 then
-										if VIP_USER then 
-										Packet("S_CAST", { spellId = _E, toX = AOECastPosition.x, toY = AOECastPosition.z, fromX = AOECastPosition.x, fromY = AOECastPosition.z }):send()
+            local AOECastPosition, MainTargetHitChance, nTargets = VP:GetCircularAOECastPosition(unit, SkillE.delay, SkillE.width, SkillE.range, SkillE.speed, myHero)
+            if MainTargetHitChance >= 2 then
+	    if VIP_USER then 
+	    Packet("S_CAST", { spellId = _E, toX = AOECastPosition.x, toY = AOECastPosition.z, fromX = AOECastPosition.x, fromY = AOECastPosition.z }):send()
+									
+	else
 										
-										else
+            CastSpell(_E, AOECastPosition.x, AOECastPosition.z) 
 										
-										CastSpell(_E, AOECastPosition.x, AOECastPosition.z) 
+				end
 										
-										end
-										
-										end
+	        	end
             end
     end
      
     function CastW(unit)
             --if not ComboKey  then return end
             if unit ~= nil and GetDistance(unit) <= SkillW.range and SkillW.ready then
-                    local CastPosition,     HitChance,      Position = VP:GetLineCastPosition(unit, SkillW.delay, SkillW.width, SkillW.range, SkillW.speed, myHero, true)
-     
-                    if HitChance >= 2 then
-										if VIP_USER then Packet("S_CAST", { spellId = _W, toX = CastPosition.x, toY = CastPosition.z, fromX = CastPosition.x, fromY = CastPosition.z }):send()
+            local CastPosition,     HitChance,      Position = VP:GetLineCastPosition(unit, SkillW.delay, SkillW.width, SkillW.range, SkillW.speed, myHero, true)
+            if HitChance >= 2 then
+            if VIP_USER then Packet("S_CAST", { spellId = _W, toX = CastPosition.x, toY = CastPosition.z, fromX = CastPosition.x, fromY = CastPosition.z }):send()
 										
-										else
-                            CastSpell(_W, CastPosition.x, CastPosition.z)
+	else
+              CastSpell(_W, CastPosition.x, CastPosition.z)
 														
-														end
+		  	end
                     end
             end
     end
