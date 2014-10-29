@@ -1,9 +1,9 @@
-    local version = "1.3"
+    local version = "1.4"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.3
+                    Version: 1.35
                     Copyright 2014
                            
             Dependency: Standalone
@@ -154,7 +154,8 @@
      
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
-                    if Settings.harass.useW then CastSpell(_W, unit.x, unit.z) end
+                    if Settings.harass.useW then CastW(Unit) end
+										if Settings.harass.useQ then CastQ(unit) end
                    
             end
     end
@@ -189,7 +190,7 @@
                            
                             end
                             if Settings.jungle.jungleW and GetDistance(JungleMob) <= SkillW.range and SkillW.ready then
-                                    CastSpell(_W, JungleMob.x, JungleMob.y)
+                                    CastSpell(_W, JungleMob.x, JungleMob.z)
                             end
                            
                             if GetDistance(JungleMob) <= 350 then CastItem(3074) end
@@ -199,7 +200,7 @@
     end
      
     function Heal()
-            if myHero.health  <= 300 then
+            if myHero.mana >= 75 then
                     enemyMinions:update()
      
                     for _, minion in pairs(enemyMinions.objects) do
@@ -325,6 +326,7 @@
             Settings:addSubMenu("["..myHero.charName.."] - Harass Settings", "harass")
             Settings.harass:addParam("harassKey", "Harass Key", SCRIPT_PARAM_ONKEYDOWN, false, GetKey("C"))
             Settings.harass:addParam("useW", "Use "..SkillW.name.." (W) in Harass", SCRIPT_PARAM_ONOFF, true)
+						Settings.harass:addParam("useQ", "Use "..SkillQ.name.." (Q) in Harass", SCRIPT_PARAM_ONOFF, true)
             
             Settings.harass:permaShow("harassKey")
      
