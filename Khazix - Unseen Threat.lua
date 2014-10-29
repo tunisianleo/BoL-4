@@ -86,7 +86,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	          EvolutionCheck()
+	    EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -155,7 +155,7 @@
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
                     if Settings.harass.useW then CastSpell(_W, unit.x, unit.z) end
-										if Settings.harass.useQ then CastSpell(_Q, unit) end
+		    if Settings.harass.useQ then CastSpell(_Q, unit) end
                    
             end
     end
