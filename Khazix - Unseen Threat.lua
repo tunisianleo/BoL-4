@@ -1,9 +1,9 @@
-    local version = "1.25"
+    local version = "1.3"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.25
+                    Version: 1.3
                     Copyright 2014
                            
             Dependency: Standalone
@@ -364,6 +364,7 @@
      
             Settings:addSubMenu("["..myHero.charName.."] - Misc Settings", "misc")
             Settings.misc:addParam("skinList", "Choose your skin", SCRIPT_PARAM_LIST, 3, { "Mecha", "Guardian of the Sands", "Classic" })
+						Settings.misc:addParam("healW", "Use "..SkillW.name.." (W) to Heal", SCRIPT_PARAM_SLICE, 25, 0, 100, 0)
      
      
             Settings:addSubMenu("["..myHero.charName.."] - Orbwalking Settings", "Orbwalking")
