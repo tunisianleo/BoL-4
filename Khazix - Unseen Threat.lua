@@ -1,9 +1,9 @@
-    local version = "1.42"
+    local version = "1.43"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.42
+                    Version: 1.43
                     Copyright 2014
                            
             Dependency: Standalone
@@ -154,7 +154,10 @@
      
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
-                    if Settings.harass.useW then CastSpell(_W, CastPosition.x, CastPosition.z) end
+						local CastPosition,     HitChance,      Position = VP:GetLineCastPosition(unit, SkillW.delay, SkillW.width, SkillW.range, SkillW.speed, myHero, true)
+     
+                    if HitChance >= 2 then
+                    if Settings.harass.useW then CastSpell(_W, unit.x, unit.z) end
 										if Settings.harass.useQ then CastSpell(_Q, unit) end
                    
             end
