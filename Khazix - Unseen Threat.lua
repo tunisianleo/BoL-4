@@ -1,9 +1,9 @@
-    local version = "1.4"
+    local version = "1.41"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.4
+                    Version: 1.41
                     Copyright 2014
                            
             Dependency: Standalone
@@ -86,7 +86,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	    EvolutionCheck()
+	          EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -312,7 +312,7 @@
     end
      
     function Menu()
-            Settings = scriptConfig("Khazix - Unseen Predator "..version.."", "xMeherKhazix")
+            Settings = scriptConfig("Khazix - Unseen Threat "..version.."", "xMeherKhazix")
      
             Settings:addSubMenu("["..myHero.charName.."] - Combo Settings", "combo")
      
