@@ -1,9 +1,9 @@
-    local version = "1.415"
+    local version = "1.416"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.415
+                    Version: 1.416
                     Copyright 2014
                            
             Dependency: Standalone
@@ -86,7 +86,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	    EvolutionCheck()
+	          EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -154,8 +154,8 @@
      
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
-                    if Settings.harass.useW then CastW(unit) end
-		    if Settings.harass.useQ then CastQ(unit) end
+                    if Settings.harass.useW then CastSpell(_W, unit.x, unit.z) end
+										if Settings.harass.useQ then CastSpell(_Q, unit) end
                    
             end
     end
@@ -175,6 +175,9 @@
                                     end
                                     if GetDistance(minion) <= 350 then CastItem(3074) end
                                     if GetDistance(minion) <= 350 then CastItem(3077) end
+																		
+                            
+                                   
                             end              
                     end
             end
@@ -195,6 +198,7 @@
                            
                             if GetDistance(JungleMob) <= 350 then CastItem(3074) end
                             if GetDistance(JungleMob) <= 350 then CastItem(3077) end
+														
                     end
             end
     end
@@ -326,7 +330,7 @@
             Settings:addSubMenu("["..myHero.charName.."] - Harass Settings", "harass")
             Settings.harass:addParam("harassKey", "Harass Key", SCRIPT_PARAM_ONKEYDOWN, false, GetKey("C"))
             Settings.harass:addParam("useW", "Use "..SkillW.name.." (W) in Harass", SCRIPT_PARAM_ONOFF, true)
-	    Settings.harass:addParam("useQ", "Use "..SkillQ.name.." (Q) in Harass", SCRIPT_PARAM_ONOFF, true)
+						Settings.harass:addParam("useQ", "Use "..SkillQ.name.." (Q) in Harass", SCRIPT_PARAM_ONOFF, true)
             
             Settings.harass:permaShow("harassKey")
      
@@ -334,6 +338,7 @@
             Settings.lane:addParam("laneKey", "Lane Clear Key", SCRIPT_PARAM_ONKEYDOWN, false, GetKey("V"))
             Settings.lane:addParam("laneQ", "Clear with "..SkillQ.name.." (Q)", SCRIPT_PARAM_ONOFF, true)
             Settings.lane:addParam("laneW", "Clear with "..SkillW.name.." (W)", SCRIPT_PARAM_ONOFF, true)
+					
             
             Settings.lane:permaShow("laneKey")
      
@@ -341,6 +346,7 @@
             Settings.jungle:addParam("jungleKey", "Jungle Clear Key", SCRIPT_PARAM_ONKEYDOWN, false, GetKey("V"))
             Settings.jungle:addParam("jungleQ", "Clear with "..SkillQ.name.." (Q)", SCRIPT_PARAM_ONOFF, true)
             Settings.jungle:addParam("jungleW", "Clear with "..SkillW.name.." (W)", SCRIPT_PARAM_ONOFF, true)
+						
            
             Settings.jungle:permaShow("jungleKey")
      
