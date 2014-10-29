@@ -1,9 +1,9 @@
-    local version = "1.44"
+    local version = "1.5"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.44
+                    Version: 1.5
                     Copyright 2014
                            
             Dependency: Standalone
@@ -86,7 +86,7 @@
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	    EvolutionCheck()
+	          EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -154,8 +154,8 @@
      
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
-                    if Settings.harass.useW then CastSpell(_W, unit.x, unit.z) end
-		    if Settings.harass.useQ then CastSpell(_Q, unit) end
+                    if Settings.harass.useW then CastW(unit) end
+										if Settings.harass.useQ then CastQ(unit) end
                    
             end
     end
@@ -166,11 +166,11 @@
                     for _, minion in pairs(enemyMinions.objects) do
                             if ValidTarget(minion) and minion ~= nil then
                                     if Settings.lane.laneW and GetDistance(minion) <= SkillW.range and SkillW.ready then
-                                            CastSpell(_W, minion.x, minion.z)
+                                            CastW(minion)
                                     end
                                    
                                     if Settings.lane.laneQ and GetDistance(minion) <= SkillQ.range and SkillQ.ready then
-                                            CastSpell(_Q, minion)
+                                            CastQ(minion)
                                             
                                     end
                                     if GetDistance(minion) <= 350 then CastItem(3074) end
@@ -189,11 +189,11 @@
      
                     if JungleMob ~= nil then
                             if Settings.jungle.jungleQ and GetDistance(JungleMob) <= SkillQ.range and SkillQ.ready then
-                                    CastSpell(_Q, JungleMob)
+                                    CastQ(JungleMob)
                            
                             end
                             if Settings.jungle.jungleW and GetDistance(JungleMob) <= SkillW.range and SkillW.ready then
-                                    CastSpell(_W, JungleMob.x, JungleMob.z)
+                                    CastW(JungleMob)
                             end
                            
                             if GetDistance(JungleMob) <= 350 then CastItem(3074) end
@@ -209,39 +209,62 @@
      
                     for _, minion in pairs(enemyMinions.objects) do
                             if ValidTarget(minion) and minion ~= nil then
-                                    CastSpell(_W, minion.x, minion.z)
+                                    CastW(minion)
                             end
                     end
                     for _, enemy in ipairs(GetEnemyHeroes()) do
                             if ValidTarget(enemy) and enemy.visible then
-                                    CastSpell(_W, enemy.x, enemy.z)
+                                    CastW(unit)
                             end
                     end
             end
     end
      
     function CastQ(unit)
-            if not ComboKey then return end
-            if unit ~= nil and SkillQ.ready and GetDistance(unit) <= SkillQ.range then
+            --if not ComboKey then return end
+            if unit ~= nil and SkillQ.ready and GetDistance(unit) <= SkillQ.range then	
+						if VIP_USER then 
+						Packet("S_CAST", {spellId = _Q, targetNetworkId = unit.networkID}):send()
+						
+						else
                      CastSpell(_Q, unit)
-     
+										 
+										 end
+										 
+										 
             end
     end
      
     function CastE(unit)
-            if not ComboKey  then return end
+           -- if not ComboKey  then return end
             if unit ~= nil and SkillE.ready and GetDistance(unit) <= SkillE.range then
-                    CastSpell(_E, unit.x, unit.z)
+						local AOECastPosition, MainTargetHitChance, nTargets = VP:GetCircularAOECastPosition(unit, SkillE.delay, SkillE.width, SkillE.range, SkillE.speed, myHero)
+                    if MainTargetHitChance >= 2 then
+										if VIP_USER then 
+										Packet("S_CAST", { spellId = _E, toX = AOECastPosition.x, toY = AOECastPosition.z, fromX = AOECastPosition.x, fromY = AOECastPosition.z }):send()
+										
+										else
+										
+										CastSpell(_E, AOECastPosition.x, AOECastPosition.z) 
+										
+										end
+										
+										end
             end
     end
      
     function CastW(unit)
-            if not ComboKey  then return end
+            --if not ComboKey  then return end
             if unit ~= nil and GetDistance(unit) <= SkillW.range and SkillW.ready then
                     local CastPosition,     HitChance,      Position = VP:GetLineCastPosition(unit, SkillW.delay, SkillW.width, SkillW.range, SkillW.speed, myHero, true)
      
                     if HitChance >= 2 then
+										if VIP_USER then Packet("S_CAST", { spellId = _W, toX = CastPosition.x, toY = CastPosition.z, fromX = CastPosition.x, fromY = CastPosition.z }):send()
+										
+										else
                             CastSpell(_W, CastPosition.x, CastPosition.z)
+														
+														end
                     end
             end
     end
