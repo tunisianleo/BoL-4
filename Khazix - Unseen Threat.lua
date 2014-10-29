@@ -1,9 +1,9 @@
-    local version = "1.416"
+    local version = "1.42"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.416
+                    Version: 1.42
                     Copyright 2014
                            
             Dependency: Standalone
@@ -154,7 +154,7 @@
      
     function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
-                    if Settings.harass.useW then CastSpell(_W, unit.x, unit.z) end
+                    if Settings.harass.useW then CastSpell(_W, CastPosition.x, CastPosition.z) end
 										if Settings.harass.useQ then CastSpell(_Q, unit) end
                    
             end
