@@ -1,10 +1,9 @@
-
-    local version = "1.2"
+    local version = "1.25"
      
     --[[
             Khazix - Unseen Threat
                     Author: Draconis & xMeher
-                    Version: 1.2
+                    Version: 1.25
                     Copyright 2014
                            
             Dependency: Standalone
@@ -205,12 +204,12 @@
      
                     for _, minion in pairs(enemyMinions.objects) do
                             if ValidTarget(minion) and minion ~= nil then
-                                    CastSpell(_W, minion.x, minion.y)
+                                    CastSpell(_W, minion.x, minion.z)
                             end
                     end
                     for _, enemy in ipairs(GetEnemyHeroes()) do
                             if ValidTarget(enemy) and enemy.visible then
-                                    CastSpell(_W, enemy.x, enemy.y)
+                                    CastSpell(_W, enemy.x, enemy.z)
                             end
                     end
             end
