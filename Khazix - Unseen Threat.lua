@@ -1,35 +1,35 @@
-    local version = "1.5"
+local version = "1.51"
      
-    --[[
-            Khazix - Unseen Threat
-                    Author: Draconis & xMeher
-                    Version: 1.5
-                    Copyright 2014
+--[[
+   Khazix - Unseen Threat
+   Author: Draconis & xMeher
+   Version: 1.51
+   Copyright 2014
                            
-            Dependency: Standalone
-    --]]
+Dependency: Standalone
+--]]
      
-    if myHero.charName ~= "Khazix" then return end
+if myHero.charName ~= "Khazix" then return end
      
-    _G.UseUpdater = true
+_G.UseUpdater = true
      
-    local REQUIRED_LIBS = {
-            ["SxOrbwalk"] = "https://raw.githubusercontent.com/Superx321/BoL/master/common/SxOrbWalk.lua",
-            ["VPrediction"] = "https://raw.githubusercontent.com/Hellsing/BoL/master/common/VPrediction.lua",
-            ["Prodiction"] = "https://bitbucket.org/Klokje/public-klokjes-bol-scripts/raw/ec830facccefb3b52212dba5696c08697c3c2854/Test/Prodiction/Prodiction.lua"
-    }
+local REQUIRED_LIBS = {
+      ["SxOrbwalk"] = "https://raw.githubusercontent.com/Superx321/BoL/master/common/SxOrbWalk.lua",
+      ["VPrediction"] = "https://raw.githubusercontent.com/Hellsing/BoL/master/common/VPrediction.lua",
+      ["Prodiction"] = "https://bitbucket.org/Klokje/public-klokjes-bol-scripts/raw/ec830facccefb3b52212dba5696c08697c3c2854/Test/Prodiction/Prodiction.lua"
+}
      
-    local DOWNLOADING_LIBS, DOWNLOAD_COUNT = false, 0
+local DOWNLOADING_LIBS, DOWNLOAD_COUNT = false, 0
      
-    function AfterDownload()
-            DOWNLOAD_COUNT = DOWNLOAD_COUNT - 1
-            if DOWNLOAD_COUNT == 0 then
-                    DOWNLOADING_LIBS = false
-                    print("<b><font color=\"#6699FF\">Khazix - Unseen Threat:</font></b> <font color=\"#FFFFFF\">Required libraries downloaded successfully, please reload (double F9).</font>")
-            end
-    end
+function AfterDownload()
+       DOWNLOAD_COUNT = DOWNLOAD_COUNT - 1
+        if DOWNLOAD_COUNT == 0 then
+            DOWNLOADING_LIBS = false
+                print("<b><font color=\"#6699FF\">Khazix - Unseen Threat:</font></b> <font color=\"#FFFFFF\">Required libraries downloaded successfully, please reload (double F9).</font>")
+       end
+ end
      
-    for DOWNLOAD_LIB_NAME, DOWNLOAD_LIB_URL in pairs(REQUIRED_LIBS) do
+for DOWNLOAD_LIB_NAME, DOWNLOAD_LIB_URL in pairs(REQUIRED_LIBS) do
             if FileExist(LIB_PATH .. DOWNLOAD_LIB_NAME .. ".lua") then
                     if DOWNLOAD_LIB_NAME ~= "Prodiction" then require(DOWNLOAD_LIB_NAME) end
                     if DOWNLOAD_LIB_NAME == "Prodiction" and VIP_USER then require(DOWNLOAD_LIB_NAME) end
@@ -38,17 +38,17 @@
                     DOWNLOAD_COUNT = DOWNLOAD_COUNT + 1
                     DownloadFile(DOWNLOAD_LIB_URL, LIB_PATH .. DOWNLOAD_LIB_NAME..".lua", AfterDownload)
             end
-    end
+ end
      
-    if DOWNLOADING_LIBS then return end
+if DOWNLOADING_LIBS then return end
      
-    local UPDATE_NAME = "Khazix - Unseen Threat"
-    local UPDATE_HOST = "raw.github.com"
-    local UPDATE_PATH = "/meher98/BoL/master/Khazix%20-%20Unseen%20Threat.lua" .. "?rand=" .. math.random(1, 10000)
-    local UPDATE_FILE_PATH = SCRIPT_PATH..GetCurrentEnv().FILE_NAME
-    local UPDATE_URL = "http://"..UPDATE_HOST..UPDATE_PATH
+local UPDATE_NAME = "Khazix - Unseen Threat"
+local UPDATE_HOST = "raw.github.com"
+local UPDATE_PATH = "/meher98/BoL/master/Khazix%20-%20Unseen%20Threat.lua" .. "?rand=" .. math.random(1, 10000)
+local UPDATE_FILE_PATH = SCRIPT_PATH..GetCurrentEnv().FILE_NAME
+local UPDATE_URL = "http://"..UPDATE_HOST..UPDATE_PATH
      
-    function AutoupdaterMsg(msg) print("<b><font color=\"#6699FF\">"..UPDATE_NAME..":</font></b> <font color=\"#FFFFFF\">"..msg..".</font>") end
+function AutoupdaterMsg(msg) print("<b><font color=\"#6699FF\">"..UPDATE_NAME..":</font></b> <font color=\"#FFFFFF\">"..msg..".</font>") end
     if _G.UseUpdater then
             local ServerData = GetWebResult(UPDATE_HOST, UPDATE_PATH)
             if ServerData then
@@ -67,26 +67,26 @@
             else
                     AutoupdaterMsg("Error downloading version info")
             end
-    end
+end
      
-    ------------------------------------------------------
-    --                       Callbacks                             
-    ------------------------------------------------------
+------------------------------------------------------
+    --            Callbacks                             
+------------------------------------------------------
      
-    function OnLoad()
+function OnLoad()
             print("<b><font color=\"#6699FF\">Khazix - Unseen Threat:</font></b> <font color=\"#FFFFFF\">Good luck and have fun!</font>")
             Variables()
             Menu()
             PriorityOnLoad()
 						
-    end
+end
      
-    function OnTick()
+function OnTick()
             ComboKey = Settings.combo.comboKey
             HarassKey = Settings.harass.harassKey
             JungleClearKey = Settings.jungle.jungleKey
             LaneClearKey = Settings.lane.laneKey
-	     EvolutionCheck()
+	        EvolutionCheck()
      
             if ComboKey then
                     Combo(Target)
@@ -113,9 +113,9 @@
             end
      
             Checks()
-    end
+ end
      
-    function OnDraw()
+function OnDraw()
             if not myHero.dead and not Settings.drawing.mDraw then
                     if SkillW.ready and Settings.drawing.wDraw then
                             DrawCircle(myHero.x, myHero.y, myHero.z, SkillW.range, RGB(Settings.drawing.wColor[2], Settings.drawing.wColor[3], Settings.drawing.wColor[4]))
@@ -132,15 +132,15 @@
                             DrawCircle(Target.x, Target.y, Target.z, 80, ARGB(255, 10, 255, 10))
                     end
             end
-    end
+end
      
-    ------------------------------------------------------
-    --                       Functions                             
-    ------------------------------------------------------
+ ------------------------------------------------------
+    --            Functions                             
+ ------------------------------------------------------
 		
 		
      
-    function Combo(unit)
+function Combo(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
                     if Settings.combo.comboItems then
                             UseItems(unit)
@@ -150,28 +150,29 @@
                     if Settings.combo.useE then CastE(unit) end
                     if Settings.combo.useQ then CastQ(unit) end
             end
-    end
+end
      
-    function Harass(unit)
+function Harass(unit)
             if ValidTarget(unit) and unit ~= nil and unit.type == myHero.type then
                     if Settings.harass.useW then CastW(unit) end
-		    if Settings.harass.useQ then CastQ(unit) end
+		            if Settings.harass.useQ then CastQ(unit) end
                    
             end
-    end
+end
      
-    function LaneClear()
+function LaneClear()
             enemyMinions:update()
             if LaneClearKey then
                     for _, minion in pairs(enemyMinions.objects) do
                             if ValidTarget(minion) and minion ~= nil then
                                     if Settings.lane.laneW and GetDistance(minion) <= SkillW.range and SkillW.ready then
-                                            CastW(minion)
+                                    if VIP_USER then Packet("S_CAST", { spellId = _W, toX = minion.x, toY = minion.z, fromX = minion.x, fromY = minion.z }):send() end
+                                            CastSpell(_W, minion.x, minion.z)
                                     end
                                    
                                     if Settings.lane.laneQ and GetDistance(minion) <= SkillQ.range and SkillQ.ready then
-                                            CastQ(minion)
-                                            
+                                    if VIP_USER then Packet("S_CAST", {spellId = _Q, targetNetworkId = minion.networkID}):send() end
+                                             CastSpell(_Q, minion)
                                     end
                                     if GetDistance(minion) <= 350 then CastItem(3074) end
                                     if GetDistance(minion) <= 350 then CastItem(3077) end
@@ -181,19 +182,21 @@
                             end              
                     end
             end
-    end
+end
      
-    function JungleClear()
+function JungleClear()
             if Settings.jungle.jungleKey then
                     local JungleMob = GetJungleMob()
      
                     if JungleMob ~= nil then
                             if Settings.jungle.jungleQ and GetDistance(JungleMob) <= SkillQ.range and SkillQ.ready then
-                                    CastQ(JungleMob)
+                            if VIP_USER then Packet("S_CAST", {spellId = _Q, targetNetworkId = JungleMob.networkID}):send() end
+                                    CastSpell(_Q, JungleMob)
                            
                             end
                             if Settings.jungle.jungleW and GetDistance(JungleMob) <= SkillW.range and SkillW.ready then
-                                    CastW(JungleMob)
+                            if VIP_USER then Packet("S_CAST", { spellId = _W, toX = JungleMob.x, toY = JungleMob.z, fromX = JungleMob.x, fromY = JungleMob.z }):send() end
+                                    CastSpell(_W, JungleMob.x, JungleMob.z)
                             end
                            
                             if GetDistance(JungleMob) <= 350 then CastItem(3074) end
@@ -201,74 +204,62 @@
 														
                     end
             end
-    end
+end
      
-    function Heal()
+function Heal()
             if myHero.mana >= 75 then
                     enemyMinions:update()
      
                     for _, minion in pairs(enemyMinions.objects) do
                             if ValidTarget(minion) and minion ~= nil then
-                                    CastW(minion)
+                                    CastSpell(_W, minion.x, minion.z)
                             end
                     end
                     for _, enemy in ipairs(GetEnemyHeroes()) do
                             if ValidTarget(enemy) and enemy.visible then
-                                    CastW(unit)
+                                    CastSpell(_W, enemy.x, enemy.z)
                             end
                     end
             end
-    end
+ end
      
-    function CastQ(unit)
+function CastQ(unit)
             --if not ComboKey then return end
             if unit ~= nil and SkillQ.ready and GetDistance(unit) <= SkillQ.range then	
-            if VIP_USER then 
-	    Packet("S_CAST", {spellId = _Q, targetNetworkId = unit.networkID}):send()
-					
-	else
-                     CastSpell(_Q, unit)
-										 
-		 end
-										 
-										 
+            if VIP_USER then Packet("S_CAST", {spellId = _Q, targetNetworkId = unit.networkID}):send() end
+            CastSpell(_Q, unit)
+            		 		 
             end
-    end
+ end
      
-    function CastE(unit)
+function CastE(unit)
            -- if not ComboKey  then return end
             if unit ~= nil and SkillE.ready and GetDistance(unit) <= SkillE.range then
             local AOECastPosition, MainTargetHitChance, nTargets = VP:GetCircularAOECastPosition(unit, SkillE.delay, SkillE.width, SkillE.range, SkillE.speed, myHero)
             if MainTargetHitChance >= 2 then
-	    if VIP_USER then 
-	    Packet("S_CAST", { spellId = _E, toX = AOECastPosition.x, toY = AOECastPosition.z, fromX = AOECastPosition.x, fromY = AOECastPosition.z }):send()
-									
-	else
-										
+	        if VIP_USER then Packet("S_CAST", { spellId = _E, toX = AOECastPosition.x, toY = AOECastPosition.z, fromX = AOECastPosition.x, fromY = AOECastPosition.z }):send() end									
             CastSpell(_E, AOECastPosition.x, AOECastPosition.z) 
 										
-				end
+				
 										
 	        	end
-            end
-    end
+         end
+ end
      
-    function CastW(unit)
+function CastW(unit)
             --if not ComboKey  then return end
             if unit ~= nil and GetDistance(unit) <= SkillW.range and SkillW.ready then
             local CastPosition,     HitChance,      Position = VP:GetLineCastPosition(unit, SkillW.delay, SkillW.width, SkillW.range, SkillW.speed, myHero, true)
             if HitChance >= 2 then
-            if VIP_USER then Packet("S_CAST", { spellId = _W, toX = CastPosition.x, toY = CastPosition.z, fromX = CastPosition.x, fromY = CastPosition.z }):send()
-										
-	else
-              CastSpell(_W, CastPosition.x, CastPosition.z)
+            if VIP_USER then Packet("S_CAST", { spellId = _W, toX = CastPosition.x, toY = CastPosition.z, fromX = CastPosition.x, fromY = CastPosition.z }):send() end
+            CastSpell(_W, CastPosition.x, CastPosition.z)
+            
 														
-		  	end
                     end
-            end
-    end
+          end
+ end
      
-    function KillSteal()
+function KillSteal()
             for _, enemy in ipairs(GetEnemyHeroes()) do
                     if ValidTarget(enemy) and enemy.visible then
                             local qDmg = getDmg("Q", enemy, myHero)
@@ -294,21 +285,21 @@
                             end
                     end
             end
-    end
+end
      
-    function AutoIgnite(unit)
+function AutoIgnite(unit)
             if ValidTarget(unit, Ignite.range) and unit.health <= getDmg("IGNITE", unit, myHero) then
                     if Ignite.ready then
                             CastSpell(Ignite.slot, unit)
                     end
             end
-    end
+end
      
-    ------------------------------------------------------
-    --                       Checks, menu & stuff                          
-    ------------------------------------------------------
+------------------------------------------------------
+ --          Checks, menu & stuff                          
+------------------------------------------------------
      
-    function Checks()
+function Checks()
             SkillQ.ready = (myHero:CanUseSpell(_Q) == READY)
             SkillW.ready = (myHero:CanUseSpell(_W) == READY)
             SkillE.ready = (myHero:CanUseSpell(_E) == READY)
@@ -327,17 +318,17 @@
      
             if VIP_USER and Settings.misc.skinList then ChooseSkin() end
             if Settings.drawing.lfc.lfc then _G.DrawCircle = DrawCircle2 else _G.DrawCircle = _G.oldDrawCircle end
-    end
+end
      
-    function IsMyHealthLow()
+function IsMyHealthLow()
             if myHero.health < (myHero.maxHealth * ( Settings.misc.healW / 100)) then
                     return true
             else
                     return false
             end
-    end
+end
      
-    function Menu()
+function Menu()
             Settings = scriptConfig("Khazix - Unseen Threat "..version.."", "xMeherKhazix")
      
             Settings:addSubMenu("["..myHero.charName.."] - Combo Settings", "combo")
@@ -394,7 +385,7 @@
      
             Settings:addSubMenu("["..myHero.charName.."] - Misc Settings", "misc")
             Settings.misc:addParam("skinList", "Choose your skin", SCRIPT_PARAM_LIST, 3, { "Mecha", "Guardian of the Sands", "Classic" })
-						Settings.misc:addParam("healW", "Use "..SkillW.name.." (W) to Heal", SCRIPT_PARAM_SLICE, 25, 0, 100, 0)
+						Settings.misc:addParam("healW", "Use "..SkillW.name.." (W) to Heal", SCRIPT_PARAM_SLICE, 0, 0, 100, 0)
      
      
             Settings:addSubMenu("["..myHero.charName.."] - Orbwalking Settings", "Orbwalking")
@@ -403,9 +394,9 @@
             TargetSelector = TargetSelector(TARGET_LESS_CAST, SkillW.range, DAMAGE_PHYSICAL, true)
             TargetSelector.name = "Khazix"
             Settings:addTS(TargetSelector)
-    end
+end
 		
-	function EvolutionCheck()
+function EvolutionCheck()
 	
 	if myHero:GetSpellData(_Q).name == "khazixqlong" then
 		SkillQ.range = 375
@@ -417,7 +408,7 @@
 	end 
 end 
      
-    function Variables()
+function Variables()
             SkillQ = { name = "Taste Their Fear", range = 325, delay = nil, speed = nil, width = nil, evolve = false, ready = false }
             SkillW = { name = "Void Spike", range = 1000, delay = 0.225, speed = 828.5, width = 100, ready = false }
             SkillE = { name = "Leap", range = 600, delay = 0.250, speed = math.huge, width = 100, evolve = false, ready = false }
@@ -558,17 +549,17 @@ end
                             end
                     end
             end
-    end
+end
      
-    function SetPriority(table, hero, priority)
+function SetPriority(table, hero, priority)
             for i=1, #table, 1 do
                     if hero.charName:find(table[i]) ~= nil then
                             TS_SetHeroPriority(priority, hero.charName)
                     end
             end
-    end
+end
      
-    function arrangePrioritys()
+function arrangePrioritys()
             for i, enemy in ipairs(GetEnemyHeroes()) do
                     SetPriority(priorityTable.AD_Carry, enemy, 1)
                     SetPriority(priorityTable.AP,            enemy, 2)
@@ -576,9 +567,9 @@ end
                     SetPriority(priorityTable.Bruiser,      enemy, 4)
                     SetPriority(priorityTable.Tank,  enemy, 5)
             end
-    end
+end
      
-    function arrangePrioritysTT()
+function arrangePrioritysTT()
             for i, enemy in ipairs(GetEnemyHeroes()) do
                     SetPriority(priorityTable.AD_Carry, enemy, 1)
                     SetPriority(priorityTable.AP,                    enemy, 1)
@@ -586,9 +577,9 @@ end
                     SetPriority(priorityTable.Bruiser,      enemy, 2)
                     SetPriority(priorityTable.Tank,          enemy, 3)
             end
-    end
+end
      
-    function UseItems(unit)
+function UseItems(unit)
             if unit ~= nil then
                     for _, item in pairs(Items) do
                             if item.reqTarget and GetDistance(unit) < item.range then
@@ -600,13 +591,13 @@ end
                             end
                     end
             end
-    end
+end
      
-    function getHitBoxRadius(target)
+ function getHitBoxRadius(target)
             return GetDistance(target.minBBox, target.maxBBox)/2
-    end
+end
      
-    function PriorityOnLoad()
+function PriorityOnLoad()
             if heroManager.iCount < 10 or (TwistedTreeline and heroManager.iCount < 6) then
                     print("<b><font color=\"#6699FF\">Khazix - Unseen Threat:</font></b> <font color=\"#FFFFFF\">Too few champions to arrange priority.</font>")
             elseif heroManager.iCount == 6 then
@@ -614,18 +605,18 @@ end
             else
                     arrangePrioritys()
             end
-    end
+end
      
-    function GetJungleMob()
+function GetJungleMob()
             for _, Mob in pairs(JungleFocusMobs) do
-                    if ValidTarget(Mob, SkillQ.range) then return Mob end
+                    if ValidTarget(Mob, SkillW.range) then return Mob end
             end
             for _, Mob in pairs(JungleMobs) do
-                    if ValidTarget(Mob, SkillQ.range) then return Mob end
+                    if ValidTarget(Mob, SkillW.range) then return Mob end
             end
-    end
+end
      
-    function OnCreateObj(obj)
+function OnCreateObj(obj)
             if obj.valid then
                     if FocusJungleNames[obj.name] then
                             JungleFocusMobs[#JungleFocusMobs+1] = obj
@@ -637,9 +628,9 @@ end
             if obj.name:find("TeleportHome.troy") then
                     Recall = true
             end
-    end
+end
      
-    function OnDeleteObj(obj)
+function OnDeleteObj(obj)
             for i, Mob in pairs(JungleMobs) do
                     if obj.name == Mob.name then
                             table.remove(JungleMobs, i)
@@ -654,22 +645,22 @@ end
             if obj.name:find("TeleportHome.troy") then
                     Recall = false
             end
-    end
+end
      
-    function TrueRange()
+function TrueRange()
             return myHero.range + GetDistance(myHero, myHero.minBBox)
-    end
+end
      
     -- Trees
-    function GetCustomTarget()
+function GetCustomTarget()
             TargetSelector:update()        
             if _G.MMA_Target and _G.MMA_Target.type == myHero.type then return _G.MMA_Target end
             if _G.AutoCarry and _G.AutoCarry.Crosshair and _G.AutoCarry.Attack_Crosshair and _G.AutoCarry.Attack_Crosshair.target and _G.AutoCarry.Attack_Crosshair.target.type == myHero.type then return _G.AutoCarry.Attack_Crosshair.target end
             return TargetSelector.target
-    end
+end
      
     -- shalzuth
-    function GenModelPacket(champ, skinId)
+function GenModelPacket(champ, skinId)
             p = CLoLPacket(0x97)
             p:EncodeF(myHero.networkID)
             p.pos = 1
@@ -691,16 +682,16 @@ end
             end
             p:Hide()
             RecvPacket(p)
-    end
+end
      
-    function ChooseSkin()
+function ChooseSkin()
             if Settings.misc.skinList ~= lastSkin then
                     lastSkin = Settings.misc.skinList
                     GenModelPacket("Khazix", Settings.misc.skinList)
             end
-    end
+end
      
-    function GetBestCircularFarmPosition(range, radius, objects)
+function GetBestCircularFarmPosition(range, radius, objects)
             local BestPos
             local BestHit = 0
             for i, object in ipairs(objects) do
@@ -714,9 +705,9 @@ end
                     end
             end
             return BestPos, BestHit
-    end
+end
      
-    function CountObjectsNearPos(pos, range, radius, objects)
+function CountObjectsNearPos(pos, range, radius, objects)
             local n = 0
             for i, object in ipairs(objects) do
                     if GetDistance(pos, object) <= radius then
@@ -724,10 +715,10 @@ end
                     end
             end
             return n
-    end
+end
      
     -- Barasia, vadash, viseversa
-    function DrawCircleNextLvl(x, y, z, radius, width, color, chordlength)
+function DrawCircleNextLvl(x, y, z, radius, width, color, chordlength)
             radius = radius or 300
             quality = math.max(8,round(180/math.deg((math.asin((chordlength/(2*radius)))))))
             quality = 2 * math.pi / quality
@@ -740,13 +731,13 @@ end
             end
      
             DrawLines2(points, width or 1, color or 4294967295)
-    end
+end
      
-    function round(num)
+function round(num)
             if num >= 0 then return math.floor(num+.5) else return math.ceil(num-.5) end
-    end
+end
      
-    function DrawCircle2(x, y, z, radius, color)
+function DrawCircle2(x, y, z, radius, color)
             local vPos1 = Vector(x, y, z)
             local vPos2 = Vector(cameraPos.x, cameraPos.y, cameraPos.z)
             local tPos = vPos1 - (vPos1 - vPos2):normalized() * radius
@@ -755,4 +746,4 @@ end
             if OnScreen({ x = sPos.x, y = sPos.y }, { x = sPos.x, y = sPos.y }) then
                     DrawCircleNextLvl(x, y, z, radius, Settings.drawing.lfc.Width, color, Settings.drawing.lfc.CL)
             end
-    end
+end
